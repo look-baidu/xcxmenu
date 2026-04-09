@@ -1,0 +1,15 @@
+<view class="dish-card">
+  <view class="dish-img-wrap" style="background-color: {{dish.category === '热菜' ? '#FFF0F0' : dish.category === '凉菜' ? '#F0FFF8' : dish.category === '主食' ? '#FFFBF0' : dish.category === '汤类' ? '#F0FFFC' : '#F0F8FF'}}">
+    <text class="dish-emoji">{{dish.emoji}}</text>
+  </view>
+  <view class="dish-info">
+    <text class="dish-name">{{dish.name}}</text>
+    <text class="dish-desc">{{dish.desc}}</text>
+    <view class="dish-bottom">
+      <text class="dish-price">¥{{dish.price}}</text>
+      <view class="dish-add-btn" bindtap="onAddTap">
+        <text class="add-icon">＋</text>
+      </view>
+    </view>
+  </view>
+</view>

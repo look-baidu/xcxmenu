@@ -1,0 +1,107 @@
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <text class="search-icon">🔍</text>
+      <input
+        class="search-input"
+        placeholder="搜索菜品"
+        placeholder-style="color:#bbb"
+        value="{{searchKey}}"
+        bindinput="onSearchInput"
+        confirm-type="search"
+      />
+      <text class="search-clear" wx:if="{{searchKey}}" bindtap="clearSearch">✕</text>
+    </view>
+  </view>
+
+  <!-- 主体区域：左侧分类 + 右侧菜品 -->
+  <view class="main-content">
+    <!-- 左侧分类栏 -->
+    <scroll-view class="sidebar" scroll-y enhanced show-scrollbar="{{false}}">
+      <view
+        class="category-item {{activeCategory === item ? 'active' : ''}}"
+        wx:for="{{categories}}"
+        wx:key="*this"
+        bindtap="onCategoryTap"
+        data-category="{{item}}"
+      >
+        <text>{{item}}</text>
+      </view>
+    </scroll-view>
+
+    <!-- 右侧菜品区 -->
+    <scroll-view
+      class="dish-area"
+      scroll-y
+      enhanced
+      show-scrollbar="{{false}}"
+      scroll-into-view="{{scrollToView}}"
+      scroll-with-animation
+    >
+      <!-- 搜索模式 -->
+      <block wx:if="{{isSearching}}">
+        <view class="section-header">搜索结果（{{filteredDishes.length}}道）</view>
+        <view class="empty-tip" wx:if="{{filteredDishes.length === 0}}">
+          <text class="empty-emoji">😅</text>
+          <text>没有找到相关菜品</text>
+        </view>
+        <dish-item
+          wx:for="{{filteredDishes}}"
+          wx:key="id"
+          dish="{{item}}"
+          bindaddtocart="onAddToCart"
+        />
+      </block>
+
+      <!-- 分类浏览模式 -->
+      <block wx:else>
+        <block wx:for="{{groupedDishes}}" wx:key="category">
+          <view id="cat-{{item.category}}" class="section-header">{{item.category}}</view>
+          <dish-item
+            wx:for="{{item.list}}"
+            wx:for-item="dish"
+            wx:key="id"
+            dish="{{dish}}"
+            bindaddtocart="onAddToCart"
+          />
+        </block>
+      </block>
+
+      <!-- 底部占位，防止被购物车栏遮挡 -->
+      <view style="height: 140rpx;"></view>
+    </scroll-view>
+  </view>
+
+  <!-- 底部购物车栏 -->
+  <view class="cart-bar">
+    <view class="cart-bar-left" bindtap="toggleCart">
+      <view class="cart-icon-wrap">
+        <text class="cart-icon-text">🛒</text>
+        <view class="cart-badge" wx:if="{{cartCount > 0}}">{{cartCount}}</view>
+      </view>
+      <view class="cart-info">
+        <text class="cart-total-price" wx:if="{{cartTotal > 0}}">¥{{cartTotal}}</text>
+        <text class="cart-empty-text" wx:else>购物车为空</text>
+      </view>
+    </view>
+    <view
+      class="cart-checkout-btn {{cartCount > 0 ? '' : 'disabled'}}"
+      bindtap="onCheckout"
+    >
+      去结算
+    </view>
+  </view>
+
+  <!-- 购物车弹窗 -->
+  <cart-popup
+    show="{{showCart}}"
+    cart="{{cart}}"
+    bindclose="closeCart"
+    bindadd="onCartAdd"
+    bindsubtract="onCartSubtract"
+    binddelete="onCartDelete"
+    bindclear="onCartClear"
+    bindorder="onOrder"
+  />
+</view>

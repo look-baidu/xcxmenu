@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "dish-item": "/components/dish-item/dish-item",
+    "cart-popup": "/components/cart-popup/cart-popup"
+  }
+}
