@@ -1,0 +1,66 @@
+<view class="detail-page">
+
+  <!-- 菜品头部信息 -->
+  <view wx:if="{{dish}}" class="dish-header">
+    <image
+      class="dish-cover"
+      src="{{dish.image}}"
+      mode="aspectFill"
+      lazy-load
+    />
+    <view class="dish-header-info">
+      <text class="dish-title">{{dish.emoji}} {{dish.name}}</text>
+      <text class="dish-desc">{{dish.desc}}</text>
+      <view class="dish-tag">
+        <text class="tag-text">{{dish.category}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分隔线 -->
+  <view class="section-divider">
+    <text class="section-title">📖 烹饪教程</text>
+  </view>
+
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="loading-wrap">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">正在加载教程...</text>
+  </view>
+
+  <!-- 错误提示 -->
+  <view wx:elif="{{error}}" class="error-wrap">
+    <text class="error-icon">😢</text>
+    <text class="error-text">{{error}}</text>
+  </view>
+
+  <!-- Markdown 内容渲染 -->
+  <view wx:else class="md-content">
+    <block wx:for="{{blocks}}" wx:key="index">
+      <view wx:if="{{item.type === 'h1'}}" class="md-h1">{{item.text}}</view>
+      <view wx:elif="{{item.type === 'h2'}}" class="md-h2">{{item.text}}</view>
+      <view wx:elif="{{item.type === 'h3'}}" class="md-h3">{{item.text}}</view>
+      <view wx:elif="{{item.type === 'p'}}" class="md-p">{{item.text}}</view>
+      <view wx:elif="{{item.type === 'li'}}" class="md-li">
+        <text class="li-dot">•</text>
+        <text class="li-text">{{item.text}}</text>
+      </view>
+      <view wx:elif="{{item.type === 'oli'}}" class="md-li">
+        <text class="li-dot">▶</text>
+        <text class="li-text">{{item.text}}</text>
+      </view>
+      <image
+        wx:elif="{{item.type === 'img'}}"
+        class="md-img"
+        src="{{item.src}}"
+        mode="widthFix"
+        lazy-load
+        show-menu-by-longpress
+      />
+      <view wx:elif="{{item.type === 'hr'}}" class="md-hr" />
+      <view wx:elif="{{item.type === 'blank'}}" class="md-blank" />
+    </block>
+  </view>
+
+  <view class="footer-pad"></view>
+</view>

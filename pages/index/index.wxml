@@ -32,18 +32,20 @@
 
     <!-- 右侧菜品区 -->
     <scroll-view
+      id="dishScrollView"
       class="dish-area"
       scroll-y
       enhanced
       show-scrollbar="{{false}}"
-      scroll-into-view="{{scrollToView}}"
+      scroll-top="{{dishScrollTop}}"
       scroll-with-animation
+      bindscroll="onDishScroll"
     >
       <!-- 搜索模式 -->
       <block wx:if="{{isSearching}}">
         <view class="section-header">搜索结果（{{filteredDishes.length}}道）</view>
         <view class="empty-tip" wx:if="{{filteredDishes.length === 0}}">
-          <text class="empty-emoji">😅</text>
+          <text class="empty-emoji">🤔</text>
           <text>没有找到相关菜品</text>
         </view>
         <dish-item
@@ -57,7 +59,7 @@
       <!-- 分类浏览模式 -->
       <block wx:else>
         <block wx:for="{{groupedDishes}}" wx:key="category">
-          <view id="cat-{{item.category}}" class="section-header">{{item.category}}</view>
+          <view id="{{item.scrollId}}" class="section-header">{{item.category}}</view>
           <dish-item
             wx:for="{{item.list}}"
             wx:for-item="dish"

@@ -175,7 +175,7 @@
 }
 
 .stepper-btn.plus {
-  background: #ff6b35;
+  background: linear-gradient(135deg, #6CC6CB, #5ab5ba);
   color: #fff;
 }
 
@@ -190,7 +190,7 @@
 .cart-item-subtotal {
   font-size: 28rpx;
   font-weight: 700;
-  color: #ff4444;
+  color: #3aabaf;
   width: 100rpx;
   text-align: right;
 }
@@ -219,12 +219,12 @@
 .footer-total-price {
   font-size: 40rpx;
   font-weight: 700;
-  color: #ff4444;
+  color: #3aabaf;
 }
 
 .footer-order-btn {
   padding: 16rpx 64rpx;
-  background: #ff6b35;
+  background: linear-gradient(135deg, #6CC6CB 0%, #5ab5ba 100%);
   color: #fff;
   font-size: 30rpx;
   font-weight: 600;
