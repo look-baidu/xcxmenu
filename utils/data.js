@@ -1,6 +1,6 @@
 const categories = ['早餐', '肉菜', '水产', '半成品','主食', '汤类', '调味料', '饮品', '甜点']
 
-// Base URL for GitHub Media CDN (GitHub LFS) - for images
+// Base URL for images - using jsDelivr CDN for better accessibility in mainland China
 const IMG_BASE = 'https://media.githubusercontent.com/media/Anduin2017/HowToCook/master/dishes'
 
 // Category-specific image paths
@@ -17,8 +17,9 @@ const IMG = {
   semi_finished: `${IMG_BASE}/semi-finished`
 }
 
-// Tutorial URL base - using raw.githubusercontent.com for markdown files
-const R = 'https://raw.githubusercontent.com/Anduin2017/HowToCook/master/dishes'
+// Tutorial URL base - using jsDelivr CDN for better accessibility in mainland China
+// Alternatively, can use ghproxy: https://ghproxy.com/https://raw.githubusercontent.com/Anduin2017/HowToCook/master/dishes
+const R = 'https://cdn.jsdelivr.net/gh/Anduin2017/HowToCook@master/dishes'
 
 const dishes = [
   { id: 101, name: '鸡蛋三明治', emoji: '🥪', price: 0, desc: '10分钟简易三明治，营养方便，快手早餐首选', category: '早餐', image: `${IMG.breakfast}/苏格兰蛋/egg1.png`, tutorialUrl: `${R}/breakfast/鸡蛋三明治.md` },
